@@ -1,18 +1,34 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Homepage</h1>
+    <form>
+      <input placeholder="Meno" v-model="name" type="text"/>
+      <button type="submit" @click.prevent="navigateToCards">Prejsť na karty</button>
+    </form>
+    <span>{{error}}</span>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  data(){
+    return{
+      name: '',
+      error: ''
+    }
+  },
+  methods:{
+    navigateToCards(){
+      if(this.name.trim() != '') {
+        this.$store.state.name = this.name
+        this.$router.push({name: 'Cards'})
+      }
+      else this.error = "Prosím zadajte meno"
+    }
   }
 }
 </script>
+<style lang="scss" scoped>
+span{
+  color: red;
+}
+</style>
